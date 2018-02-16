@@ -30,8 +30,8 @@ volatile uint8_t wdt_count;  // Incremented by watchdog interrupt <----------
 // ----- DECLARATION ENTREES ET SORTIES ------
 void setup ()
 {
-                                                     //arret des services
-    ADCSRA &= ~_BV(ADEN);  // switch ADC OFF     
+      //arret des services
+                                                    // ADCSRA &= ~_BV(ADEN);  // switch ADC OFF     
   ACSR  |= _BV(ACD);     // switch Analog Compartaror OFF
 
 
@@ -161,10 +161,10 @@ void loop() {
 
                if(buttonState == LOW) {       // si le capeteur et enclenché
                                            watchdog_stop();
-                                           
+                                           ADCSRA |= (1<<ADEN); //Enable ADC
                                        }
                                       else{       // veille en atendant signal de mise en marche
-                                          
+                                          ADCSRA &= ~(1<<ADEN); //Disable ADC, saves ~230uA
                                             sleep_mode(); // Make CPU sleep until next WDT interrupt
                                             }
                              
