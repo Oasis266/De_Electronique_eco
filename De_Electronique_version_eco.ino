@@ -65,13 +65,13 @@ void blink(uint8_t flash)
 //void loop()
 {  
   buttonState = digitalRead(buttonPin);
-  if (buttonState == LOW){  Si on bouge le dé
+  if (buttonState == LOW){ // Si on bouge le dé
     
-   for (int i=0; i <= 7; i++){  Animation pour 8 affichages de dé avec 200 ms entre chaque
+   for (int i=0; i <= 7; i++){ // Animation pour 8 affichages de dé avec 200 ms entre chaque
      
   ranim = random(1, 7); // on effectue un random pour chaque affichage
   
-  while (ranim == last){  On verifie que deux affichages consécutifs ne sont pas les mêmes 
+  while (ranim == last){ // On verifie que deux affichages consécutifs ne sont pas les mêmes 
     ranim = random(1, 7); // Sinon on random un autre chiffre
                        }  
   last = ranim; // On stock le chiffre pour éviter d'afficher les 2 mêmes valeurs de dé pendant l'animation
