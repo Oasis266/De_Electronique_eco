@@ -65,7 +65,7 @@ void blink(uint8_t flash)
 //void loop()
 {  
   buttonState = digitalRead(buttonPin);
-  if (buttonState == HIGH){  Si on bouge le dé
+  if (buttonState == LOW){  Si on bouge le dé
     
    for (int i=0; i <= 7; i++){  Animation pour 8 affichages de dé avec 200 ms entre chaque
      
