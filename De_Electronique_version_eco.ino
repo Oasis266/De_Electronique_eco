@@ -1,4 +1,4 @@
-#include <avr/io.h>
+#include <avr/io.h>   // les librairies
 #include <avr/wdt.h> 
 #include <avr/sleep.h>
 
@@ -24,13 +24,13 @@ int last = 0;
 // Temps que le dé reste affiché 10000 ms = 10 seconde
 int timo = 10000; 
 
-volatile uint8_t wdt_count;  // Incremented by watchdog interrupt
+volatile uint8_t wdt_count;  // Incremented by watchdog interrupt <----------
 
 
 // ----- DECLARATION ENTREES ET SORTIES ------
 void setup ()
 {
-  
+                                                     //arret des services
     ADCSRA &= ~_BV(ADEN);  // switch ADC OFF     
   ACSR  |= _BV(ACD);     // switch Analog Compartaror OFF
 
@@ -38,6 +38,9 @@ void setup ()
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);// Configure attiny85 sleep mode
   // Reset watchdog interrupt counter
   wdt_count = 255; //max value
+
+
+
   
   //On indique que les LED sont des sorties
   pinMode (pinLeds1, OUTPUT);
@@ -148,10 +151,10 @@ void blink(uint8_t flash)
 
 
 void loop() {  
-                   //on lance le code lumiere
-                    blink(3);
-                wdt_count = 0;
-                watchdog_start_interrupt(6);      // prescale of 6 ~= 1sec
+               //on lance le code lumiere
+             blink(3);
+             wdt_count = 0;
+             watchdog_start_interrupt(6);      // prescale of 6 ~= 1sec //on lance les interruptions cpu
                 
            
         
@@ -159,16 +162,12 @@ void loop() {
                if(buttonState == LOW) {       // si le capeteur et enclenché
                                            watchdog_stop();
                                            
-                                            }
+                                       }
                                       else{       // veille en atendant signal de mise en marche
                                           
                                             sleep_mode(); // Make CPU sleep until next WDT interrupt
                                             }
-                                          
-                                         
-
-                                            
-                                
+                             
               }
 
               
@@ -177,8 +176,6 @@ void watchdog_stop() {
   WDTCR |= _BV(WDCE) | _BV(WDE);
   WDTCR = 0x00;
 }
-
-
 
 /* Turn onn WDT (with interupt) */
 void watchdog_start_interrupt(uint8_t wd_prescaler) {
