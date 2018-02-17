@@ -151,10 +151,10 @@ void loop() {
              watchdog_start_interrupt(6);      // prescale of 6 ~= 1sec //on lance les interruptions cpu
        if(buttonState == LOW) {       // si le capeteur et enclenché
                                 watchdog_stop();
-                              //  ADCSRA |= (1<<ADEN); //Enable ADC
+                               ADCSRA |= (1<<ADEN); //Enable ADC
                                }
                           else{       // veille en atendant signal de mise en marche
-                             // ADCSRA &= ~(1<<ADEN); //Disable ADC, saves ~230uA
+                             ADCSRA &= ~(1<<ADEN); //Disable ADC, saves ~230uA
                                sleep_mode(); // Make CPU sleep until next WDT interrupt
                              }
         }           
