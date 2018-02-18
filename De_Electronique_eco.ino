@@ -1,8 +1,9 @@
+#define F_CPU 1000000UL // <---------------cpu a 1mhz
 #include <avr/io.h>   // les librairies
 #include <avr/wdt.h> 
 #include <avr/sleep.h>
 
-
+//        le capteur sera à l'envert a l'envers///
 // ----- DECLARATION DES VARIABLES ------
 
 // Pour les LED
@@ -57,7 +58,7 @@ void blink(uint8_t flash)
 
 {  
   buttonState = digitalRead(buttonPin);
- if (buttonState == LOW){              // Si on bouge le dé  
+ if (buttonState == HIGH){              // Si on bouge le dé  
 
    for (int i=0; i <= 7; i++){             // Animation pour 8 affichages de dé avec 200 ms entre chaque  
      
@@ -149,7 +150,7 @@ void loop() {
              blink(3);
              wdt_count = 0;
              watchdog_start_interrupt(4);      // prescale of 6 ~= 1sec //on lance les interruptions cpu
-       if(buttonState == LOW) {       // si le capeteur et enclenché
+       if(buttonState == HIGH) {       // si le capeteur et enclenché
                                 watchdog_stop();
                                ADCSRA |= (1<<ADEN); //Enable ADC
                                }
